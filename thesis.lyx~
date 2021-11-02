@@ -202,7 +202,7 @@ filename "chapters/Chapter 2.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "chapters/chapter_3/chapter_3.lyx"
+filename "chapters/Chapter 3.lyx"
 
 \end_inset
 

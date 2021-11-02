@@ -10,7 +10,25 @@
 
 \usepackage{listings}
 \lstloadlanguages{Python}
-\lstset{language=Python,tabsize=4}
+
+
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=right,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+
+\lstset{style=mystyle, language = Python}
 
 % The crest on the titlepage can be set by changing the def below.
 % You can get others from http://www.ox.ac.uk/branding_toolkit/

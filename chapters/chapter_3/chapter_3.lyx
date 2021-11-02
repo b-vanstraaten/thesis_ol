@@ -411,12 +411,6 @@ The operation of the OPX is determined by a nested dictionary.
  In this section I will introduce a minimal example of this dictionary,
  and explain the various components.
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Preview
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -424,12 +418,8 @@ status open
 
 
 \backslash
-lstinputlisting[firstline=0,lastline=2]{./chapters/chapter_3/hello.py}
-\end_layout
-
-\end_inset
-
-
+lstinputlisting[firstline=0,lastline=9]{./chapters/chapter_3/code_snippets/config.
+py}
 \end_layout
 
 \end_inset

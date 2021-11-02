@@ -413,8 +413,28 @@ The operation of the OPX is determined by a nested dictionary.
  
 \end_layout
 
-\begin_layout Subsection
-The Configuration Dictionary 
+\begin_layout Standard
+\begin_inset Preview
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting[firstline=0,lastline=2]{./chapters/chapter_3/hello.py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

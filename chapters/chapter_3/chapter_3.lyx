@@ -1,0 +1,456 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ociamthesis-lyx
+\options a4paper,titlepage
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type numerical
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Tuning qubits using Novel Measurements on Next Generation Instruments
+\end_layout
+
+\begin_layout Standard
+Currently the quantum computing industry is exploring many different qubit
+ implementations.
+ Each implementation has unique set of advantages which are viciously promoted
+ by the researchers who work with them.
+ At the time of writing superconducting qubits are most mature, with Alphabet
+ and Google demonstrating NISQ computation with qubits respectively.
+ However, the Ion Trap community emphisises quality over quantity, therefore
+ they claim the best quantum volume of the qubit implementations 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The quantum volume is the largest random circuit of equal width (number
+ of qubits) and depth (number of gates) that can implemented.
+ Rather akin to a researchers H-index, with their number of papers and number
+ of citations on those papers.
+\end_layout
+
+\end_inset
+
+.
+ By both these metrics semiconducting fall short, a fact that, if raised
+ with one of their advocates, will be quickly countered with along the lines
+ of: the race to fault tolerant quantum computing is a marathon not a sprint,
+ by leveraging the mature classical semiconducting industry we will be able
+ scale more effectively.
+ In short there isn't a consensus on which qubit is best.
+ 
+\end_layout
+
+\begin_layout Standard
+Despite their differences, each of these qubit implentations are just two-level
+ quantum systems which will sit in the fridge (or photonic lattice) doing
+ nothing without the classical control electronics.
+ In fact classical control electronics are integral for 
+\begin_inset Formula $3/5$
+\end_inset
+
+ of DiVincenzo's criteria, namely initialisation, control and readout.
+ Furthermore, while not one of DiVincenzo's criteria, it is believed that
+ error correction will be vital in Fault tolerant quantum computation.
+ From a control electronics point of view error correction is difficult,
+ requiring low latency readout then a control pulse dependant on the what
+ is readout.
+ Such latencies explicitely require dedicated FPGA circuitry.
+ Therefore, qubit research has promoted componies to develop new control
+ hardware.
+ One prominate example of these new instruments is the Quantum machine OPX.
+ 
+\end_layout
+
+\begin_layout Standard
+In this section I will describe the OPX and how it changed measurements
+ in the lab.
+ 
+\end_layout
+
+\begin_layout Section
+The Quantum Machines OPX
+\end_layout
+
+\begin_layout Standard
+The quantum machines OPX is their singular product.
+ This isn't sign of an incomplete product lineup, but a new direction for
+ control electronics.
+ The OPX is designed to be an all in one instrument with waveform generation
+ and digitisation capabilities, both at a rate of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+SI{1}{
+\backslash
+giga S
+\backslash
+per
+\backslash
+second}
+\end_layout
+
+\end_inset
+
+.
+ While having both of these capabilites in one instrument is unusual it
+ is the instruments FPGA processor which makes the instrument powerful.
+ At the core of the instrument, coordinating everything, is a programable
+ FPGA.
+ It sythesises digital waveforms to be output by the instrument, digitally
+ demodulate and even perform the ultra low latency classical logic necessary
+ for error correction.
+ The user interacts with this FPGA through a language called QUA, which
+ is then compiled to run deterministically on the FPGA.
+ 
+\end_layout
+
+\begin_layout Standard
+In the context of Semiconducting qubits QUA enabled us to control the device
+ in intricate ways enabling novel measurements, which have helped us the
+ tuning of semiconducting qubits.
+ However, before I describe these measurements I will discuss how I set
+ the OPX up in our lab, illustrating features of the OPX along the way.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Port Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bits of Precision
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Marker
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+An output port for digital markers
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Output
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+An output port for anolog signals
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Input
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+An input port for analog signals to digitised
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A table summariseing the ports on an OPX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Setting up the OPX
+\end_layout
+
+\begin_layout Standard
+In this section I will describe the sequence of measurements I took to character
+ise our experiment setup and thus to appropriately choose configuration
+ values for the OPX.
+ The order these measurements are presented is the order in which they were
+ performed in our lab, and the examples will be presented with QUA code
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The code presented is QUA 1.20 and Python 3.9
+\end_layout
+
+\end_inset
+
+.
+ The QUA language is embedded in Python, all QUA functions will be defined
+ however knowledge of Python will be assumed.
+ 
+\end_layout
+
+\begin_layout Standard
+The operation of the OPX is determined by a nested dictionary.
+ In this section I will introduce a minimal example of this dictionary,
+ and explain the various components.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Preview
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting[firstline=0,lastline=2]{./chapters/chapter_3/hello.py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+High Frame Rate Two Dimensional Acqusitions
+\end_layout
+
+\begin_layout Standard
+High frame rate two dimensional acqusitions of the charge stability, where
+ a preprogrammed pulse sequency is played prior to measuring each pixel
+ try to envoke Pauli spin blockade.
+ Previously the high framerate acquistions have been accomplised by a handful
+ of groups around the world, however, to my knowledge never have the high
+ framerate acqusitons been combined with pulse sequences.
+ Thus this novel measurement can search for spin physics significanly faster
+ than any method before.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,209 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass ociamthesis-lyx
+\options a4paper,titlepage
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type numerical
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Course Tuning and Radio Frequency Measurements
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+epigraph{Before we can use a quantum computer we first need to be able to
+ turn it on.}{B.
+ Severin}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Upon cooling a gate defined semiconducting device down to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+SI{}{
+\backslash
+milli 
+\backslash
+kelvin}
+\end_layout
+
+\end_inset
+
+ temperatures one is not presented with quantum dots; instead they must
+ tuned through a deliberate effort of measuring the state of the device
+ and then adjusting gate voltages accordingly.
+ In the past experiments concerned themselves with a small number of dots,
+ thus manual tuning by an eager experimentalist was the go to proceedure.
+ As we have moved towards scaling quantum devices to many dots, eventually
+ millions, there has been a push towards automating the proces.
+ 
+\end_layout
+
+\begin_layout Standard
+To date all manual and automated tuning efforts have used transport measurements
+ to probe the state of the device.
+ Such measurements work by applying a DC voltage across the Ohmics of the
+ device then measuring the current through some path in the device.
+ Such measurements necessitate a direct DC line between electronics at room
+ temperature and the layer of the heterstructure which hosts quantum dots.
+ To ensure low electorn/hole temperatures in this layer it is necessary
+ to heavily lowpass filter then DC line, severly limiting the bandwidth
+ of transport measurements.
+ Thus, transport measurements have proven orders of magnitude too slow for
+ single shot measurements of qubits, necessating the use of radio frequency
+ measurements.
+ As a result transport measurements are used for defining the quantum dots
+ and then become redundant for all subsequent qubit measurements.
+ 
+\end_layout
+
+\begin_layout Section
+Transport Measurements
+\end_layout
+
+\begin_layout Standard
+By quite reductionist arguments transport measurements are as simple as
+ applying a DC voltage across the device then measuring the DC current which
+ flows.
+ However, nothing is quite that simple inside a Dilution refrigorator.
+ In this section I will breifly outline how transport measurements are performed
+ then I will discuss what information they probe about the device.
+ 
+\end_layout
+
+\begin_layout Subsection
+Performing Transport Measurements
+\end_layout
+
+\begin_layout Standard
+There are two significant complications which come with transport measurements,
+ the currents are small and the lines must be highly filtered.
+ 
+\end_layout
+
+\begin_layout Section
+Radio Frequency Measurements
+\end_layout
+
+\begin_layout Subsection
+Matching Circuits
+\end_layout
+
+\begin_layout Subsection
+Demodulation
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Quotes eld
+\end_inset
+
+Video Mode
+\begin_inset Quotes erd
+\end_inset
+
+ Measurements
+\end_layout
+
+\begin_layout Section
+Coarse Tuning with Transport Measurements
+\end_layout
+
+\begin_layout Section
+Coarse Tuning with Radio Frequency Measurements
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

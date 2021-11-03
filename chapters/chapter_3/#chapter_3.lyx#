@@ -438,8 +438,11 @@ status open
 
 
 \backslash
-lstinputlisting[firstline=0,lastline=9]{./chapters/chapter_3/code_snippets/config.
-py}
+lstinputlisting[firstline=0,lastline=9, basicstyle=
+\backslash
+fontfamily{lmtt}
+\backslash
+scriptsize]{./chapters/chapter_3/code_snippets/config.py}
 \end_layout
 
 \end_inset
@@ -567,8 +570,11 @@ status open
 
 
 \backslash
-lstinputlisting[firstline=0,lastline=15]{./chapters/chapter_3/code_snippets/contr
-ollers.py}
+lstinputlisting[firstline=0,lastline=15, basicstyle=
+\backslash
+fontfamily{lmtt}
+\backslash
+scriptsize]{./chapters/chapter_3/code_snippets/controllers.py}
 \end_layout
 
 \end_inset
@@ -604,10 +610,132 @@ The controller configuration dictionary configured to use analog ports 1
 \end_inset
 
 .
+ Coefficients which are left blank default to zero.
  
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:controller_dictionary"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Elements
+\end_layout
+
+\begin_layout Standard
+The elements dictionary provides a level of abstraction on top of the ports.
+ It allows the user to group ports together to perform specific operations.
+ For example a pair of ports which act as the input for an IQ mixer or an
+ output port and a input port drive a reflectometry matching circuit with
+ an RF tone are then measure the reflection.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:elements_dictionary"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows a mininmal example element dictionary used for our experiment.
+ 
+\end_layout
+
+\begin_layout Standard
+The first two elements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{left_plunger}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{right_plunger}
+\end_layout
+
+\end_inset
+
+ are elements associated with a device gate.
+ The intention of these elements play waveforms their respective gates to
+ perturb the voltage and thus change the state of the device.
+ It is through these elements that qubit operations will be performed.
+ The third element, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{charge_sensor_plunger}
+\end_layout
+
+\end_inset
+
+, controls the charge sensor plunger.
+ This element 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting[firstline=0,lastline=33, basicstyle=
+\backslash
+fontfamily{lmtt}
+\backslash
+scriptsize]{./chapters/chapter_3/code_snippets/elements.py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:elements_dictionary"
 
 \end_inset
 

@@ -438,8 +438,11 @@ status open
 
 
 \backslash
-lstinputlisting[firstline=0,lastline=9]{./chapters/chapter_3/code_snippets/config.
-py}
+lstinputlisting[firstline=0,lastline=9, basicstyle=
+\backslash
+fontfamily{lmtt}
+\backslash
+scriptsize]{./chapters/chapter_3/code_snippets/config.py}
 \end_layout
 
 \end_inset
@@ -467,10 +470,6 @@ name "fig:config_dictionary"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -530,8 +529,161 @@ and
  are the set of feedback and feedforward coefficients respectively, or taps,
  which completely specify the action of the filter.
  Through careful choice of these filter coefficients it is possible to design
- an digital filter which will predistort the digital signal sythesised to
- the DACs such that 
+ an digital filter which will predistort the digital waveform sythesised
+ by the DACs such that waveform which arrives at the sample, post distortion
+ by any filters, bias-tees, mixers or amplifiers, is exactly as intended.
+ This will be true irrespective of the waveform.
+ Therefore, once the filter coefficients are calibrated the user is able
+ to shape waveforms free from the burden of manual filter compensation.
+ 
+\end_layout
+
+\begin_layout Standard
+I will discuss how to obtain the filter coefficients for the high-pass filtering
+ effect introduced by a bias-tee later, for now figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:controller_dictionary"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows our controller dictionary, for now configured for no filter precompensati
+on.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting[firstline=0,lastline=15, basicstyle=
+\backslash
+fontfamily{lmtt}
+\backslash
+scriptsize]{./chapters/chapter_3/code_snippets/controllers.py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The controller configuration dictionary configured to use analog ports 1
+ - 4, no digital ports and input port 1.
+ The analog ports are configured to not be precompensated by choosing the
+ filter coefficients such that 
+\begin_inset Formula $a_{m}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $m=1,2,3,...$
+\end_inset
+
+, 
+\begin_inset Formula $b_{0}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $b_{k}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $k=1,2,3$
+\end_inset
+
+.
+ Coefficients which are left blank default to zero.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:controller_dictionary"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Elements
+\end_layout
+
+\begin_layout Standard
+The elements dictionary provides a level of abstraction on top of the ports.
+ It allows the user to group ports together to perform specific operations.
+ For example a pair of ports which act as the input for an IQ mixer or an
+ output port and a input port drive a reflectometry matching circuit with
+ an RF tone are then measure the reflection.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting[firstline=0,lastline=33, basicstyle=
+\backslash
+fontfamily{lmtt}
+\backslash
+scriptsize]{./chapters/chapter_3/code_snippets/elements.py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

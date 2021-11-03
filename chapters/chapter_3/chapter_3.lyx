@@ -408,9 +408,29 @@ The code presented is QUA 1.20 and Python 3.9
 
 \begin_layout Standard
 The operation of the OPX is determined by a nested dictionary.
- In this section I will introduce a minimal example of this dictionary,
- and explain the various components.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:config_dictionary"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ introduces the high level struture of this dictionary, and subsequent sections
+ will explain the various subdictionaries containted within it.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -420,6 +440,183 @@ status open
 \backslash
 lstinputlisting[firstline=0,lastline=9]{./chapters/chapter_3/code_snippets/config.
 py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A code snippet showing the quantum machines OPX configuration dictionary.
+ The values controllers, elements, pulses, waveforms, digital waveforms
+ and integration weights are themselves dictionaries, which will be discussed
+ subsequently.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:config_dictionary"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Controllers
+\end_layout
+
+\begin_layout Standard
+The controllers dictionary specifies the ports in use one one or more OPX.
+ Any unallocated ports are free to be used concurrently for other experiments.
+ In addition, for each analog output port it is possible to specifiy a digital
+ filter which can be used to precompensate any pulse played to that port
+ for the effect of any filters, bias-tees, mixers or amplifiers between
+ the OPX and the sample.
+ The filter is applied to the digital signal output by FPGA processor before
+ it reaches the DACs to be sythesised into an analog waveform.
+ 
+\end_layout
+
+\begin_layout Standard
+A general digital filter with input 
+\begin_inset Formula $x[n]$
+\end_inset
+
+ and output 
+\begin_inset Formula $y[n]$
+\end_inset
+
+, where 
+\begin_inset Formula $n$
+\end_inset
+
+ indexes the timestep, implements the following equation 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+y[n]=\sum_{m=1}^{M}a_{m}y[n-m]+\sum_{k=0}^{K}b_{k}x[n-k],
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\{a_{m}\}_{m=1}^{M}$
+\end_inset
+
+and 
+\begin_inset Formula $\{b_{k}\}_{k=0}^{K}$
+\end_inset
+
+ are the set of feedback and feedforward coefficients respectively, or taps,
+ which completely specify the action of the filter.
+ Through careful choice of these filter coefficients it is possible to design
+ an digital filter which will predistort the digital waveform sythesised
+ by the DACs such that waveform which arrives at the sample, post distortion
+ by any filters, bias-tees, mixers or amplifiers, is exactly as intended.
+ This will be true irrespective of the waveform.
+ Therefore, once the filter coefficients are calibrated the user is able
+ to shape waveforms free from the burden of manual filter compensation.
+ 
+\end_layout
+
+\begin_layout Standard
+I will discuss how to obtain the filter coefficients for the high-pass filtering
+ effect introduced by a bias-tee later, for now figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:controller_dictionary"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows our controller dictionary, for now configured for no filter precompensati
+on.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting[firstline=0,lastline=15]{./chapters/chapter_3/code_snippets/contr
+ollers.py}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The controller configuration dictionary configured to use analog ports 1
+ - 4, no digital ports and input port 1.
+ The analog ports are configured to not be precompensated by choosing the
+ filter coefficients such that 
+\begin_inset Formula $a_{m}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $m=1,2,3,...$
+\end_inset
+
+, 
+\begin_inset Formula $b_{0}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $b_{k}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $k=1,2,3$
+\end_inset
+
+.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:controller_dictionary"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

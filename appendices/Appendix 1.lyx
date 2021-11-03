@@ -1,44 +1,79 @@
-#LyX 1.6.6 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass ociamthesis-lyx
 \options a4paper,titlepage
 \use_default_options false
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding auto
-\font_roman default
-\font_sans default
-\font_typewriter default
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
-
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize 12
 \spacing onehalf
 \use_hyperref false
 \papersize default
 \use_geometry false
-\use_amsmath 1
-\use_esint 0
-\cite_engine natbib_authoryear
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
-\quotes_language english
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle fancy
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
@@ -47,8 +82,221 @@
 Appendix Name
 \end_layout
 
+\begin_layout Section
+Remote VISA Connections
+\end_layout
+
 \begin_layout Standard
-Colourless green ideas sleep furiously.
+The virtual instrument software architecture (VISA) specificiation is which
+ enables communitaction, and therefore control, of lab instruments.
+ It is designed to be independant of the interface, such that a common set
+ of commands can be used to communicate over GPIB, USB and Ethernet.
+ A typical experimental setup for a lab PC to control a set of instruments
+ via VISA, where the instruments are physically connected via USB or over
+ private Ethernet network.
+ 
+\end_layout
+
+\begin_layout Standard
+Pre-coronavirus the experimentalist would then control the experiment from
+ the lab PC.
+ However, Coronavirus limited access to the lab.
+ We had to adopted a new protocal for working, going to the lab only when
+ it was physically required; controlling the experiment remotely otherwise.
+ So we moved to remote desktop sofware controlling the lab PC with VNC or
+ RDP.
+ This solution was passable, however, network lag made controlling our intricate
+ experiments irritating.
+ Leading to me soon asking the question: could I just connect to the VISA
+ insturments remotely? 
+\end_layout
+
+\begin_layout Standard
+For the Ethernet instruments the solution seemed easy - why not just connect
+ them to the univeristy network rather than the lab PCs private network?
+ A question which was met with a hard 
+\emph on
+
+\begin_inset Quotes eld
+\end_inset
+
+no
+\begin_inset Quotes erd
+\end_inset
+
+
+\emph default
+ by the departments network admin.
+ As some of the insturments ran old operating systems that long since ceased
+ to recieve patches for modern exploits.
+ Thus, they could undermine the security of the network.
+ 
+\end_layout
+
+\begin_layout Standard
+I then asked myself: why not expose a network port on the lab PC then forward
+ all traffic to that port to the instrument and vice versa? And so, down
+ the rabbit hole I went.
+ To summarise, it works and due genious that is Linux's 'everything is a
+ file' ethos it I even managed to gain remote control of USB instruments
+ such as our IVVI-DAC-Rack.
+ What follows is a desciption of the Linux commands used on the lab and
+ remote PCs for remote ethernet and USB connections.
+ 
+\end_layout
+
+\begin_layout Subsection
+USB 
+\end_layout
+
+\begin_layout Standard
+The connection to the IVVI-DAC-Rack occurs via the serial port at 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{/dev/ttyUSB0}
+\end_layout
+
+\end_inset
+
+.
+ Firstly we must make a bidirectional byte stream between this serial port
+ and a network port of our choosing, in this case
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+lstinline{'ip_address':8888}
+\end_layout
+
+\end_inset
+
+.
+ To do this run the command below in the PC physically connected to the
+ DAC
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=bash]   
+\end_layout
+
+\begin_layout Plain Layout
+
+$ socat /dev/ttyUSB0,raw,echo=0 tcp-listen:8888,reuseaddr 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+Now on the remote PC we wish to control the DAC from we must make a virtual
+ serial port and create another bi-direction byte stream to the network
+ port we have just opened.
+ So we run the command 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=bash]   
+\end_layout
+
+\begin_layout Plain Layout
+
+$ sudo socat PTY,raw,echo=0,link=/dev/ttyUSB0_remote tcp:'ip_address':8888
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+Where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{`ip_address`}
+\end_layout
+
+\end_inset
+
+ is the ip address of the PC physically connected to the IVVI-DAC-Rack.
+ This command will create the file 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{/dev/ttyUSB0_remote}
+\end_layout
+
+\end_inset
+
+ which the DAC driver can communicate with as if it were the the true serial
+ port on the lab PC.
+ As usual this file must be granted permissions with the command 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=bash]   
+\end_layout
+
+\begin_layout Plain Layout
+
+$ sudo chmod +666 /dev/ttyUSB0_remote
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

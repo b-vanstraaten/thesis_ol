@@ -1,4 +1,4 @@
-default_config = {
+config = {
     "version": 1.2,
     "controllers": controllers,
     "elements": elements,

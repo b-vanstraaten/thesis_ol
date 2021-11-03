@@ -120,7 +120,7 @@ For the Ethernet instruments the solution seemed easy - why not just connect
 \begin_inset Quotes eld
 \end_inset
 
-no
+NO
 \begin_inset Quotes erd
 \end_inset
 
@@ -240,19 +240,9 @@ end{lstlisting}
 \end_inset
 
 Where 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
 \backslash
-lstinline{`ip_address`}
-\end_layout
-
-\end_inset
-
- is the ip address of the PC physically connected to the IVVI-DAC-Rack.
+lstinline{/dev/ttyUSB0_remote} is the ip address of the PC physically connected
+ to the IVVI-DAC-Rack.
  This command will create the file 
 \begin_inset ERT
 status open
